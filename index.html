@@ -28,9 +28,9 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.25), transparent 30%),
-        radial-gradient(circle at 80% 40%, rgba(56, 189, 248, 0.18), transparent 30%),
-        radial-gradient(circle at 50% 90%, rgba(192, 132, 252, 0.12), transparent 35%);
+        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.22), transparent 32%),
+        radial-gradient(circle at 80% 40%, rgba(56, 189, 248, 0.15), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(192, 132, 252, 0.10), transparent 35%);
       pointer-events: none;
       z-index: -2;
     }
@@ -40,8 +40,8 @@
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
       background-size: 40px 40px;
       pointer-events: none;
       z-index: -1;
@@ -52,49 +52,49 @@
       text-decoration: none;
     }
 
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 20px 8%;
+      padding: 18px 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 50;
-      background: rgba(5, 8, 22, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5, 8, 22, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
 
     .logo {
       font-weight: 900;
+      font-size: 18px;
       letter-spacing: 1px;
     }
 
-    .logo span {
-      color: #38bdf8;
-    }
+    .logo span { color: #38bdf8; }
 
     .nav-links {
       display: flex;
       gap: 28px;
       font-size: 14px;
-      color: #cbd5e1;
+      color: #94a3b8;
     }
 
-    .nav-links a:hover {
-      color: #38bdf8;
-    }
+    .nav-links a { transition: color 0.2s; }
+    .nav-links a:hover { color: #38bdf8; }
 
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 130px 8% 80px;
+      padding: 120px 8% 80px;
       position: relative;
       background:
-        linear-gradient(90deg, rgba(5,8,22,0.95), rgba(5,8,22,0.75), rgba(5,8,22,0.92)),
+        linear-gradient(90deg, rgba(5,8,22,0.97), rgba(5,8,22,0.78), rgba(5,8,22,0.94)),
         url("pics/banner.jpg");
       background-size: cover;
       background-position: center;
@@ -103,8 +103,8 @@
     .hero-layout {
       width: 100%;
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 60px;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 50px;
       align-items: center;
       position: relative;
       z-index: 2;
@@ -112,38 +112,48 @@
 
     .eyebrow {
       display: inline-block;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       color: #38bdf8;
       letter-spacing: 5px;
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
     }
 
     h1 {
-      font-size: clamp(50px, 8vw, 110px);
+      font-size: clamp(48px, 7.5vw, 105px);
       line-height: 0.95;
       letter-spacing: -4px;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .gradient-text {
-      background: linear-gradient(90deg, #ffffff, #c084fc, #38bdf8);
+      background: linear-gradient(90deg, #ffffff 0%, #c084fc 50%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
-      font-size: clamp(22px, 3vw, 34px);
-      color: #cbd5e1;
-      margin-bottom: 6px;
+      font-size: clamp(18px, 2.4vw, 28px);
+      color: #94a3b8;
+      margin-bottom: 10px;
     }
 
+    /* Fixed Focus line */
     .focus-line {
-      font-size: clamp(22px, 3vw, 34px);
-      margin-bottom: 26px;
-      min-height: 42px;
+      font-size: clamp(18px, 2.4vw, 28px);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
+    .focus-label {
+      color: #475569;
+      font-size: clamp(13px, 1.5vw, 16px);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
 
     .typing {
       color: #c084fc;
@@ -155,68 +165,71 @@
     }
 
     @keyframes blink {
-      50% {
-        border-color: transparent;
-      }
+      50% { border-color: transparent; }
     }
 
     .description {
-      max-width: 700px;
+      max-width: 620px;
       color: #94a3b8;
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 38px;
+      font-size: 17px;
+      line-height: 1.85;
+      margin-bottom: 36px;
     }
 
     .buttons {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 14px 24px;
+      padding: 13px 24px;
       border-radius: 999px;
       font-weight: 800;
-      border: 1px solid rgba(255,255,255,0.14);
-      transition: 0.25s ease;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: transform 0.22s ease, border-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
     }
 
     .btn-primary {
       background: linear-gradient(90deg, #8b5cf6, #38bdf8);
       color: #050816;
       border: none;
-      box-shadow: 0 0 35px rgba(56, 189, 248, 0.25);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.22);
     }
 
-    .btn:hover {
+    .btn-primary:hover {
       transform: translateY(-3px);
+      box-shadow: 0 0 45px rgba(56, 189, 248, 0.38);
     }
 
     .btn-secondary {
-      color: #e2e8f0;
+      color: #cbd5e1;
       background: rgba(255,255,255,0.04);
     }
 
     .btn-secondary:hover {
+      transform: translateY(-3px);
       border-color: #38bdf8;
       color: #38bdf8;
     }
 
+    /* ── PROFILE CARD ── */
     .profile-card {
       justify-self: center;
-      width: min(390px, 100%);
-      padding: 30px;
-      border-radius: 30px;
+      width: min(360px, 100%);
+      padding: 28px;
+      border-radius: 28px;
       background:
-        linear-gradient(135deg, rgba(139, 92, 246, 0.16), rgba(56, 189, 248, 0.10)),
-        rgba(5, 8, 22, 0.30);
-      border: 1px solid rgba(255, 255, 255, 0.16);
+        linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(56, 189, 248, 0.08)),
+        rgba(5, 8, 22, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.13);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       box-shadow:
-        0 30px 90px rgba(0, 0, 0, 0.45),
-        inset 0 0 35px rgba(56, 189, 248, 0.06);
+        0 30px 80px rgba(0, 0, 0, 0.40),
+        inset 0 0 30px rgba(56, 189, 248, 0.05);
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -227,11 +240,11 @@
       position: absolute;
       inset: -2px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.45), transparent 35%),
-        radial-gradient(circle at 90% 70%, rgba(56, 189, 248, 0.35), transparent 35%);
+        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.40), transparent 35%),
+        radial-gradient(circle at 90% 70%, rgba(56, 189, 248, 0.30), transparent 35%);
       z-index: -1;
       filter: blur(18px);
-      opacity: 0.85;
+      opacity: 0.80;
     }
 
     .profile-card::after {
@@ -239,24 +252,24 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
       background-size: 26px 26px;
-      opacity: 0.22;
+      opacity: 0.20;
       pointer-events: none;
     }
 
     .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 9px 15px;
-      margin-bottom: 18px;
+      gap: 9px;
+      padding: 8px 14px;
+      margin-bottom: 20px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.55);
-      border: 1px solid rgba(34, 197, 94, 0.38);
+      background: rgba(15, 23, 42, 0.60);
+      border: 1px solid rgba(34, 197, 94, 0.35);
       color: #bbf7d0;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 900;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -265,26 +278,17 @@
     }
 
     .status-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       background: #22c55e;
-      box-shadow:
-        0 0 10px rgba(34, 197, 94, 0.9),
-        0 0 25px rgba(34, 197, 94, 0.55);
+      box-shadow: 0 0 9px rgba(34, 197, 94, 0.9), 0 0 22px rgba(34, 197, 94, 0.5);
       animation: pulseGreen 1.7s infinite;
     }
 
     @keyframes pulseGreen {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.35);
-        opacity: 0.65;
-      }
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.65; }
     }
 
     .profile-info {
@@ -293,114 +297,265 @@
     }
 
     .profile-info h3 {
-      font-size: 26px;
-      margin-bottom: 14px;
+      font-size: 22px;
+      margin-bottom: 12px;
       color: #ffffff;
     }
 
     .profile-info p {
-      color: #cbd5e1;
-      line-height: 1.7;
-      font-size: 15px;
-      max-width: 300px;
+      color: #94a3b8;
+      line-height: 1.75;
+      font-size: 14px;
+      max-width: 280px;
       margin: 0 auto;
     }
 
-    .status-line {
+    /* Mini stat row */
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
       margin-top: 18px;
       padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      color: #38bdf8;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      position: relative;
+      z-index: 2;
     }
 
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      display: block;
+      font-size: 20px;
+      font-weight: 900;
+      color: #38bdf8;
+      line-height: 1;
+    }
+
+    .stat-lbl {
+      display: block;
+      font-size: 10px;
+      color: #64748b;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── SECTION SHARED ── */
     section {
-      padding: 95px 8%;
+      padding: 80px 8%;
     }
 
     .section-title {
-      font-size: clamp(34px, 5vw, 58px);
-      margin-bottom: 22px;
+      font-size: clamp(30px, 4.5vw, 52px);
+      margin-bottom: 18px;
       letter-spacing: -2px;
     }
 
-    .section-title span {
-      color: #38bdf8;
-    }
+    .section-title span { color: #38bdf8; }
 
     .section-text {
-      max-width: 800px;
+      max-width: 720px;
       color: #94a3b8;
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.85;
     }
 
+    /* ── SECTION DIVIDERS ── */
+    section:nth-child(even) {
+      background: rgba(15, 23, 42, 0.45);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+      align-items: start;
+      margin-top: 8px;
+    }
+
+    .about-points {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .about-point {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .about-point-icon {
+      font-size: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .about-point-text {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .about-point-text strong {
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .about-aside {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .about-aside h4 {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 16px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .timeline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .timeline-item p {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .timeline-item p strong {
+      color: #e2e8f0;
+      display: block;
+      font-size: 13px;
+    }
+
+    /* ── SKILLS GRID ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 22px;
-      margin-top: 42px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 38px;
     }
 
     .card {
-      background: rgba(15, 23, 42, 0.72);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 22px;
-      padding: 26px;
-      min-height: 170px;
-      transition: 0.28s ease;
+      background: rgba(15, 23, 42, 0.70);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 24px;
+      min-height: 160px;
+      transition: transform 0.26s ease, border-color 0.26s ease, box-shadow 0.26s ease;
       position: relative;
       overflow: hidden;
     }
 
     .card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(56,189,248,0.6);
-      box-shadow: 0 20px 60px rgba(56,189,248,0.12);
+      transform: translateY(-6px);
+      border-color: rgba(56,189,248,0.5);
+      box-shadow: 0 18px 50px rgba(56,189,248,0.10);
+    }
+
+    .card-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+      display: block;
     }
 
     .card h3 {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #e2e8f0;
     }
 
     .card p {
-      color: #94a3b8;
+      color: #64748b;
       line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* Accent top border on hover */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8b5cf6, #38bdf8);
+      opacity: 0;
+      transition: opacity 0.26s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
     }
 
     .tag-row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin-top: 34px;
+      margin-top: 30px;
     }
 
     .tag {
-      padding: 10px 15px;
+      padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      color: #cbd5e1;
-      font-size: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #94a3b8;
+      font-size: 13px;
+      transition: border-color 0.2s, color 0.2s;
     }
 
+    .tag:hover {
+      border-color: rgba(56,189,248,0.4);
+      color: #38bdf8;
+    }
+
+    /* ── CONTACT ── */
     .contact {
       text-align: center;
-      padding-bottom: 120px;
+      padding-bottom: 100px;
     }
 
     .contact .section-text {
-      margin: auto;
+      margin: 0 auto;
     }
 
+    /* ── FOOTER ── */
     footer {
-      padding: 34px 8%;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: #64748b;
+      padding: 32px 8%;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      color: #334155;
       text-align: center;
+      font-size: 14px;
       position: relative;
     }
 
@@ -408,55 +563,47 @@
       content: "Code. Systems. Aesthetics.";
       position: absolute;
       left: 50%;
-      top: -60px;
+      top: -55px;
       transform: translateX(-50%);
-      font-size: clamp(34px, 8vw, 120px);
-      color: rgba(255,255,255,0.035);
+      font-size: clamp(28px, 7vw, 110px);
+      color: rgba(255,255,255,0.03);
       white-space: nowrap;
       pointer-events: none;
+      font-weight: 900;
     }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero-layout {
         grid-template-columns: 1fr;
       }
 
       .profile-card {
-        max-width: 340px;
+        max-width: 100%;
         justify-self: start;
       }
 
-      .nav-links {
-        display: none;
-      }
+      .nav-links { display: none; }
 
-      h1 {
-        letter-spacing: -2px;
+      h1 { letter-spacing: -2px; }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
       }
     }
 
     @media (max-width: 600px) {
-      nav {
-        padding: 18px 6%;
-      }
+      nav { padding: 16px 6%; }
 
-      .hero,
-      section {
+      .hero, section {
         padding-left: 6%;
         padding-right: 6%;
       }
 
-      .hero {
-        padding-top: 120px;
-      }
+      .hero { padding-top: 110px; }
 
-      .focus-line {
-        font-size: 24px;
-      }
-
-      .description {
-        font-size: 16px;
-      }
+      .description { font-size: 15px; }
 
       .btn {
         width: 100%;
@@ -470,7 +617,6 @@
 
   <nav>
     <div class="logo">Jovan<span>Ops</span></div>
-
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Stack</a>
@@ -481,6 +627,7 @@
 
   <main>
 
+    <!-- HERO -->
     <section class="hero" id="home">
       <div class="hero-layout">
 
@@ -492,11 +639,10 @@
             <span class="gradient-text">Ljusić</span>
           </h1>
 
-          <p class="subtitle">
-            IT Operations & Systems Specialist
-          </p>
+          <p class="subtitle">IT Operations &amp; Systems Specialist</p>
 
           <p class="focus-line">
+            <span class="focus-label">Focus →</span>
             <span class="typing" id="typing-text">AI Data Quality</span>
           </p>
 
@@ -525,9 +671,20 @@
               Infrastructure mindset. Customer-first communication.
               AI evaluation. Automation. Clean systems. Quiet focus.
             </p>
+          </div>
 
-            <div class="status-line">
-              Building Mode Active
+          <div class="stat-row">
+            <div class="stat-item">
+              <span class="stat-num">4+</span>
+              <span class="stat-lbl">Years</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">10+</span>
+              <span class="stat-lbl">Tools</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">∞</span>
+              <span class="stat-lbl">Curiosity</span>
             </div>
           </div>
         </div>
@@ -535,37 +692,90 @@
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about">
       <h2 class="section-title">Digital systems with <span>human logic.</span></h2>
 
-      <p class="section-text">
-        Technology has always been more than work. From IT operations and customer support
-        to AI evaluation and automation, I enjoy building systems that solve real problems.
-        Clean solutions. Meaningful work. Continuous learning.
-      </p>
+      <div class="about-grid">
+        <div>
+          <p class="section-text">
+            Technology has always been more than work for me. From IT operations and customer support
+            to AI evaluation and automation — I enjoy building systems that solve real problems.
+            Clean solutions. Meaningful work. Continuous learning.
+          </p>
+
+          <div class="about-points">
+            <div class="about-point">
+              <span class="about-point-icon">🧠</span>
+              <p class="about-point-text"><strong>Analytical by training</strong> — Philosophy background translates directly into structured problem-solving, clear documentation, and logical system design.</p>
+            </div>
+            <div class="about-point">
+              <span class="about-point-icon">🔧</span>
+              <p class="about-point-text"><strong>Hands-on operator</strong> — Comfortable across Windows, Linux, cloud environments and automation scripting. Infrastructure isn't abstract, it's daily reality.</p>
+            </div>
+            <div class="about-point">
+              <span class="about-point-icon">🌐</span>
+              <p class="about-point-text"><strong>Remote-first mindset</strong> — Building towards international remote work in technical support, CS and AI quality evaluation roles.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-aside">
+          <h4>Quick Profile</h4>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p><strong>Location</strong>Serbia — Remote-ready worldwide</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p><strong>Background</strong>IT Ops · Customer Success · AI Data Quality</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p><strong>Languages</strong>Serbian (native) · English (fluent)</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p><strong>Education</strong>Philosophy — analytical thinking applied to tech</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <p><strong>Currently</strong>Open to remote opportunities</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- SKILLS -->
     <section id="skills">
       <h2 class="section-title">Core <span>Stack.</span></h2>
 
+      <p class="section-text">The tools and disciplines I work with daily — from cloud infrastructure to human-language AI evaluation.</p>
+
       <div class="grid">
         <div class="card">
+          <span class="card-icon">🖥️</span>
           <h3>IT Support</h3>
           <p>Windows, Linux, troubleshooting, user support and technical problem solving.</p>
         </div>
 
         <div class="card">
+          <span class="card-icon">☁️</span>
           <h3>Infrastructure</h3>
           <p>Azure, Docker, GitHub, virtualization, deployments and cloud fundamentals.</p>
         </div>
 
         <div class="card">
+          <span class="card-icon">🤖</span>
           <h3>AI Evaluation</h3>
           <p>LLM response evaluation, data quality, rubric-based review and structured feedback.</p>
         </div>
 
         <div class="card">
-          <h3>Automation & Operations</h3>
+          <span class="card-icon">⚙️</span>
+          <h3>Automation &amp; Operations</h3>
           <p>PowerShell, Python, documentation, workflows, escalation and process improvement.</p>
         </div>
       </div>
@@ -584,6 +794,7 @@
       </div>
     </section>
 
+    <!-- PLAYGROUND -->
     <section id="playground">
       <h2 class="section-title">Digital <span>Playground.</span></h2>
 
@@ -594,27 +805,32 @@
 
       <div class="grid">
         <div class="card">
+          <span class="card-icon">🏗️</span>
           <h3>Infrastructure Labs</h3>
-          <p>Azure, AWS, Linux and Terraform experiments focused on real-world deployment scenarios, automation and cloud architecture. Azure • AWS • Terraform • Linux</p>
+          <p>Azure, AWS, Linux and Terraform experiments focused on real-world deployment scenarios, automation and cloud architecture.</p>
         </div>
 
         <div class="card">
+          <span class="card-icon">🔁</span>
           <h3>Automation Playground</h3>
-          <p>PowerShell and Python projects designed to simplify repetitive tasks, improve workflows and turn chaos into repeatable systems. PowerShell • Python • Automation</p>
+          <p>PowerShell and Python projects designed to simplify repetitive tasks, improve workflows and turn chaos into repeatable systems.</p>
         </div>
 
         <div class="card">
-          <h3>AI Evaluation & Quality</h3>
-          <p>Structured evaluation of LLM responses, rubric-based quality review and feedback systems focused on consistency and accuracy. AI • QA • Analysis</p>
+          <span class="card-icon">📊</span>
+          <h3>AI Evaluation &amp; Quality</h3>
+          <p>Structured evaluation of LLM responses, rubric-based quality review and feedback systems focused on consistency and accuracy.</p>
         </div>
 
         <div class="card">
+          <span class="card-icon">🎮</span>
           <h3>Beyond Technology</h3>
           <p>When I'm not building systems, you'll find me exploring philosophy, visual aesthetics, music, travel and occasionally surviving PUBG matches.</p>
         </div>
       </div>
     </section>
 
+    <!-- CONTACT -->
     <section class="contact" id="contact">
       <h2 class="section-title">Let's Build Something <span>Meaningful.</span></h2>
 
@@ -623,7 +839,7 @@
         Systems Operations and AI Data Quality.
       </p>
 
-      <div class="buttons" style="justify-content:center; margin-top:35px;">
+      <div class="buttons" style="justify-content:center; margin-top:32px;">
         <a href="mailto:jovanljusic97@gmail.com" class="btn btn-primary">Email Me</a>
         <a href="https://github.com/JovanOps" target="_blank" class="btn btn-secondary">GitHub</a>
         <a href="https://www.linkedin.com/in/jovan-ljusic-238186177/" target="_blank" class="btn btn-secondary">LinkedIn</a>

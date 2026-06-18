@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Infrastructure Labs | JovanOps</title>
+  <meta name="description" content="Infrastructure labs by JovanOps: Azure, AWS, Linux, Terraform, Kubernetes, monitoring and automation projects." />
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: #0b1020;
+      --card: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --blue-soft: rgba(56, 189, 248, 0.12);
+      --purple-soft: rgba(124, 58, 237, 0.13);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        radial-gradient(circle at top left, var(--blue-soft), transparent 34%),
+        radial-gradient(circle at bottom right, var(--purple-soft), transparent 38%),
+        var(--bg);
+      background-size: 80px 80px, 80px 80px, auto, auto, auto;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 8%;
+      background: rgba(7, 11, 22, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav a {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--blue);
+    }
+
+    .page {
+      padding: 90px 8% 80px;
+    }
+
+    .hero {
+      max-width: 980px;
+      margin-bottom: 64px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.7;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.08em;
+      margin-bottom: 26px;
+    }
+
+    .hero h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: 0.22s ease;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #020617;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 50px rgba(56, 189, 248, 0.18);
+    }
+
+    .btn-secondary {
+      color: #dbeafe;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.06em;
+    }
+
+    .section-title p {
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .lab-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.50));
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 28px;
+      transition: 0.25s ease;
+    }
+
+    .lab-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 34%);
+      opacity: 0;
+      transition: 0.25s ease;
+      pointer-events: none;
+    }
+
+    .lab-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(56, 189, 248, 0.48);
+      box-shadow: 0 24px 70px rgba(2, 132, 199, 0.12);
+    }
+
+    .lab-card:hover::before {
+      opacity: 1;
+    }
+
+    .lab-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+      z-index: 1;
+    }
+
+    .lab-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      font-size: 1.65rem;
+    }
+
+    .lab-type {
+      color: #7dd3fc;
+      background: rgba(14, 165, 233, 0.10);
+      border: 1px solid rgba(14, 165, 233, 0.18);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 7px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .lab-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      letter-spacing: -0.035em;
+      margin-bottom: 14px;
+    }
+
+    .lab-card p {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 22px;
+    }
+
+    .tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .tags span {
+      font-size: 0.76rem;
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.11);
+      border: 1px solid rgba(14, 165, 233, 0.16);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .lab-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid rgba(148, 163, 184, 0.13);
+    }
+
+    .lab-link {
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .lab-link:hover {
+      letter-spacing: 0.02em;
+    }
+
+    .status {
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      opacity: 0.75;
+    }
+
+    .note {
+      margin-top: 46px;
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .note h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.04em;
+    }
+
+    .note p {
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 900px;
+    }
+
+    footer {
+      padding: 44px 8%;
+      color: #64748b;
+      border-top: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    @media (max-width: 1100px) {
+      .labs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        padding: 22px 6%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .page {
+        padding: 64px 6% 60px;
+      }
+
+      .labs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lab-card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Jovan<span>Ops</span></a>
+
+    <nav class="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#stack">Stack</a>
+      <a href="index.html#playground">Playground</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Infrastructure Playground</div>
+
+      <h1>Infrastructure <span>Labs.</span></h1>
+
+      <p>
+        Hands-on cloud and systems projects focused on Azure, AWS, Linux, Terraform,
+        Kubernetes, monitoring, CI/CD and real-world deployment scenarios. Each lab
+        documents the technical goal, architecture, implementation steps and lessons learned.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#labs">Explore Labs</a>
+        <a class="btn btn-secondary" href="https://github.com/JovanOps?tab=repositories" target="_blank" rel="noopener">
+          View GitHub Profile
+        </a>
+        <a class="btn btn-secondary" href="index.html#playground">
+          Back to Playground
+        </a>
+      </div>
+    </section>
+
+    <section id="labs">
+      <div class="section-title">
+        <h2>Selected Labs</h2>
+        <p>
+          A curated set of infrastructure experiments built to demonstrate practical
+          cloud administration, deployment logic, troubleshooting and documentation.
+        </p>
+      </div>
+
+      <div class="labs-grid">
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🏗️</div>
+            <div class="lab-type">Azure · Terraform</div>
+          </div>
+
+          <h3>Azure Terraform Infra Pro</h3>
+
+          <p>
+            Terraform-based Azure infrastructure project provisioning a Linux VM with
+            networking, NSG rules and Nginx web server deployment. Focused on repeatable
+            infrastructure, clean resource structure and practical cloud deployment.
+          </p>
+
+          <div class="tags">
+            <span>Azure</span>
+            <span>Terraform</span>
+            <span>Linux</span>
+            <span>Nginx</span>
+            <span>Networking</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/azure-terraform-infra-pro" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">IaC Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">📊</div>
+            <div class="lab-type">Azure · Monitoring</div>
+          </div>
+
+          <h3>Azure VM Monitoring & Alerting Lab</h3>
+
+          <p>
+            Azure VM monitoring and alerting system using Log Analytics, KQL and Azure
+            Monitor. Built to demonstrate operational visibility, alert rules and basic
+            production-style monitoring workflows.
+          </p>
+
+          <div class="tags">
+            <span>Azure</span>
+            <span>Azure Monitor</span>
+            <span>Log Analytics</span>
+            <span>KQL</span>
+            <span>Alerts</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/azure-vm-monitoring-alerting-lab" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Ops Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🐳</div>
+            <div class="lab-type">Docker · CI/CD</div>
+          </div>
+
+          <h3>Azure Container App CI/CD Lab</h3>
+
+          <p>
+            Production-ready CI/CD pipeline with GitHub Actions, Docker, Azure Container
+            Apps and real-world RBAC permission debugging. Focused on automated deployment
+            and cloud troubleshooting.
+          </p>
+
+          <div class="tags">
+            <span>Docker</span>
+            <span>GitHub Actions</span>
+            <span>Azure</span>
+            <span>CI/CD</span>
+            <span>RBAC</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/azure-containerapp-cicd-lab" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Deployment Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🌐</div>
+            <div class="lab-type">Azure · Static Web</div>
+          </div>
+
+          <h3>Azure Static Website Lab</h3>
+
+          <p>
+            Static website deployment using Azure Storage Static Website hosting,
+            blob storage and cloud architecture documentation. Demonstrates simple
+            cloud hosting and resource configuration.
+          </p>
+
+          <div class="tags">
+            <span>Azure</span>
+            <span>Cloud</span>
+            <span>Static Website</span>
+            <span>Blob Storage</span>
+            <span>Documentation</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/azure-static-website-lab" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Cloud Hosting</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">☸️</div>
+            <div class="lab-type">Kubernetes</div>
+          </div>
+
+          <h3>Kubernetes Basics</h3>
+
+          <p>
+            Hands-on Kubernetes lab demonstrating core concepts such as Pods,
+            Deployments, Services and container orchestration. Focused on fundamentals
+            and practical command-line workflow.
+          </p>
+
+          <div class="tags">
+            <span>Kubernetes</span>
+            <span>Docker</span>
+            <span>Pods</span>
+            <span>Deployments</span>
+            <span>Services</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/kubernetes-basics" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Container Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">⚙️</div>
+            <div class="lab-type">Azure · Linux</div>
+          </div>
+
+          <h3>Azure Nginx Autodeploy</h3>
+
+          <p>
+            Azure Linux VM lab with automated Nginx deployment using cloud-init.
+            Demonstrates repeatable provisioning, startup automation and basic
+            web server deployment.
+          </p>
+
+          <div class="tags">
+            <span>Azure</span>
+            <span>Linux</span>
+            <span>Nginx</span>
+            <span>Cloud-init</span>
+            <span>Automation</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/azure-nginx-autodeploy" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Automation Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🔐</div>
+            <div class="lab-type">Azure · Networking</div>
+          </div>
+
+          <h3>Azure Infra Lab</h3>
+
+          <p>
+            Azure infrastructure lab demonstrating Linux VM deployment, Nginx setup,
+            networking configuration and secure SSH access. Built as a practical
+            foundation for cloud infrastructure work.
+          </p>
+
+          <div class="tags">
+            <span>Azure</span>
+            <span>Linux</span>
+            <span>SSH</span>
+            <span>Nginx</span>
+            <span>Networking</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/azure-infra-lab" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Infra Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">☁️</div>
+            <div class="lab-type">AWS · HA</div>
+          </div>
+
+          <h3>AWS ASG & ALB Lab</h3>
+
+          <p>
+            AWS infrastructure lab deploying an Auto Scaling Group behind an
+            Application Load Balancer to demonstrate scalable cloud architecture,
+            high availability and load-balanced deployment.
+          </p>
+
+          <div class="tags">
+            <span>AWS</span>
+            <span>Auto Scaling</span>
+            <span>Load Balancer</span>
+            <span>High Availability</span>
+            <span>Cloud</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/lab2-asg-alb" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">AWS Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🧱</div>
+            <div class="lab-type">AWS · Terraform</div>
+          </div>
+
+          <h3>AWS Terraform EC2 Basic</h3>
+
+          <p>
+            Basic AWS infrastructure project using Terraform to provision an EC2
+            instance and demonstrate Infrastructure as Code principles, cloud resources
+            and repeatable deployment logic.
+          </p>
+
+          <div class="tags">
+            <span>AWS</span>
+            <span>Terraform</span>
+            <span>EC2</span>
+            <span>Infrastructure as Code</span>
+            <span>Cloud</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/aws-terraform-ec2-basic" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">IaC Lab</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="note">
+        <h2>Why this section exists</h2>
+        <p>
+          These labs are not presented only as code repositories. They are structured
+          as technical documentation pieces that show how I approach systems work:
+          defining the goal, building the environment, testing deployment behavior,
+          documenting problems and turning troubleshooting into reusable knowledge.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    JovanOps · Infrastructure Labs · Azure, AWS, Linux, Terraform, Kubernetes & Automation
+  </footer>
+</body>
+</html>

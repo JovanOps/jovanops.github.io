@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Beyond Technology | JovanOps</title>
+  <meta name="description" content="The personal side of JovanOps — philosophy, writing, visual aesthetics, public creative work, music, travel and gaming." />
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: #0b1020;
+      --card: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --blue-soft: rgba(56, 189, 248, 0.12);
+      --purple-soft: rgba(124, 58, 237, 0.16);
+      --rose-soft: rgba(244, 114, 182, 0.10);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        radial-gradient(circle at top left, var(--purple-soft), transparent 34%),
+        radial-gradient(circle at bottom right, var(--blue-soft), transparent 38%),
+        radial-gradient(circle at 65% 20%, var(--rose-soft), transparent 30%),
+        var(--bg);
+      background-size: 80px 80px, 80px 80px, auto, auto, auto, auto;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 8%;
+      background: rgba(7, 11, 22, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav a {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--blue);
+    }
+
+    .page {
+      padding: 90px 8% 80px;
+    }
+
+    .hero {
+      max-width: 1060px;
+      margin-bottom: 64px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.7;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 7.2rem);
+      line-height: 0.94;
+      letter-spacing: -0.08em;
+      margin-bottom: 26px;
+    }
+
+    .hero h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      max-width: 840px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: 0.22s ease;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #020617;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 50px rgba(56, 189, 248, 0.18);
+    }
+
+    .btn-secondary {
+      color: #dbeafe;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.06em;
+    }
+
+    .section-title p {
+      max-width: 560px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .beyond-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .beyond-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.50));
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 28px;
+      transition: 0.25s ease;
+    }
+
+    .beyond-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 34%);
+      opacity: 0;
+      transition: 0.25s ease;
+      pointer-events: none;
+    }
+
+    .beyond-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(56, 189, 248, 0.48);
+      box-shadow: 0 24px 70px rgba(2, 132, 199, 0.12);
+    }
+
+    .beyond-card:hover::before {
+      opacity: 1;
+    }
+
+    .beyond-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+      z-index: 1;
+    }
+
+    .beyond-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      font-size: 1.65rem;
+    }
+
+    .beyond-type {
+      color: #7dd3fc;
+      background: rgba(14, 165, 233, 0.10);
+      border: 1px solid rgba(14, 165, 233, 0.18);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 7px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .beyond-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      letter-spacing: -0.035em;
+      margin-bottom: 14px;
+    }
+
+    .beyond-card p {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 22px;
+    }
+
+    .tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .tags span {
+      font-size: 0.76rem;
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.11);
+      border: 1px solid rgba(14, 165, 233, 0.16);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .note {
+      margin-top: 46px;
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .note h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.04em;
+    }
+
+    .note p {
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 930px;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .social-links a {
+      color: #dbeafe;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.40);
+      padding: 11px 15px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      transition: 0.22s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--blue);
+      border-color: rgba(56, 189, 248, 0.55);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      padding: 44px 8%;
+      color: #64748b;
+      border-top: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    @media (max-width: 1100px) {
+      .beyond-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        padding: 22px 6%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .page {
+        padding: 64px 6% 60px;
+      }
+
+      .beyond-card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Jovan<span>Ops</span></a>
+
+    <nav class="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Stack</a>
+      <a href="index.html#playground">Playground</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Personal Layer</div>
+
+      <h1>Beyond <span>Technology.</span></h1>
+
+      <p>
+        The personal side of JovanOps: philosophy, writing, visual aesthetics,
+        public creative work and gaming. A space where technical discipline meets
+        intellectual curiosity, identity and expression.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#beyond">Explore Beyond</a>
+        <a class="btn btn-secondary" href="index.html#playground">Back to Playground</a>
+        <a class="btn btn-secondary" href="https://www.instagram.com/artpopix/" target="_blank" rel="noopener">ArtPopix</a>
+      </div>
+    </section>
+
+    <section id="beyond">
+      <div class="section-title">
+        <h2>Identity Outside Systems</h2>
+        <p>
+          A more personal layer of the portfolio — not separate from technology,
+          but part of the same mindset: structure, meaning, aesthetics and focus.
+        </p>
+      </div>
+
+      <div class="beyond-grid">
+
+        <article class="beyond-card">
+          <div class="beyond-top">
+            <div class="beyond-icon">📚</div>
+            <div class="beyond-type">Philosophy</div>
+          </div>
+
+          <h3>Kant, Autonomy & Ethical Structure</h3>
+
+          <p>
+            My academic background is rooted in philosophy, with a special focus
+            on Kantian ethics, autonomy and the categorical imperative. I am also
+            interested in existentialism, French philosophy, neo-Kantian thought,
+            classical Greek philosophy and German idealism.
+          </p>
+
+          <div class="tags">
+            <span>Kant</span>
+            <span>Autonomy</span>
+            <span>Ethics</span>
+            <span>Hegel</span>
+            <span>Existentialism</span>
+          </div>
+        </article>
+
+        <article class="beyond-card">
+          <div class="beyond-top">
+            <div class="beyond-icon">✍️</div>
+            <div class="beyond-type">Writing</div>
+          </div>
+
+          <h3>Moj Duh</h3>
+
+          <p>
+            I write and develop personal philosophical material, including an
+            ongoing project titled “Moj Duh”. The work explores discipline,
+            freedom, identity, morality and the inner structure of the self.
+          </p>
+
+          <div class="tags">
+            <span>Writing</span>
+            <span>Identity</span>
+            <span>Freedom</span>
+            <span>Self</span>
+          </div>
+        </article>
+
+        <article class="beyond-card">
+          <div class="beyond-top">
+            <div class="beyond-icon">🎨</div>
+            <div class="beyond-type">Visual Culture</div>
+          </div>
+
+          <h3>ArtPopix</h3>
+
+          <p>
+            ArtPopix is a public creative space focused on visual mood, digital
+            identity and art that lives through atmosphere, contrast and symbolic
+            expression.
+          </p>
+
+          <div class="tags">
+            <span>Visual Identity</span>
+            <span>Art</span>
+            <span>Aesthetics</span>
+            <span>Digital Mood</span>
+          </div>
+        </article>
+
+        <article class="beyond-card">
+          <div class="beyond-top">
+            <div class="beyond-icon">🎮</div>
+            <div class="beyond-type">Gaming</div>
+          </div>
+
+          <h3>PUBG, Strategy & Focus</h3>
+
+          <p>
+            Gaming is part of my creative balance, especially PUBG Mobile.
+            Strategy, patience, timing and focus often matter more than chaos —
+            which makes it closer to systems thinking than it first appears.
+          </p>
+
+          <div class="tags">
+            <span>PUBG Mobile</span>
+            <span>Strategy</span>
+            <span>Focus</span>
+            <span>Timing</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="note">
+        <h2>Public Links</h2>
+        <p>
+          A few public spaces connected to my personal and creative identity.
+        </p>
+
+        <div class="social-links">
+          <a href="https://www.facebook.com/jovan.ljusic.9" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/jovan.ljusic/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.youtube.com/@jovanljusic6" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.tiktok.com/@jovanljusic6" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://www.instagram.com/artpopix/" target="_blank" rel="noopener">ArtPopix</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    JovanOps · Beyond Technology · Philosophy, Writing, Visual Aesthetics &amp; Focus
+  </footer>
+</body>
+</html>

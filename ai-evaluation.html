@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Evaluation & Quality | JovanOps</title>
+  <link rel="stylesheet" href="style.css" />
+   <style>
+    .page-section {
+  min-height: 100vh;
+  padding: 150px 8% 80px;
+  background:
+    linear-gradient(rgba(10, 13, 30, 0.94), rgba(5, 9, 20, 0.98)),
+    radial-gradient(circle at top left, rgba(44, 179, 255, 0.16), transparent 35%);
+  color: #ffffff;
+}
+
+.hero-section {
+  max-width: 850px;
+  margin-bottom: 55px;
+}
+
+.hero-section h1 {
+  font-size: clamp(42px, 6vw, 78px);
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+.hero-section h1 span {
+  color: #2db8ff;
+}
+
+.hero-section p {
+  max-width: 780px;
+  color: #9aa7bd;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.project-card {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+  padding: 30px;
+  transition: 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(45, 184, 255, 0.45);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+}
+
+.project-icon {
+  font-size: 30px;
+  margin-bottom: 18px;
+}
+
+.project-card h2 {
+  font-size: 24px;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+.project-card p {
+  color: #8fa0b8;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.tags span {
+  font-size: 13px;
+  color: #9bdcff;
+  border: 1px solid rgba(45, 184, 255, 0.25);
+  background: rgba(45, 184, 255, 0.08);
+  padding: 7px 11px;
+  border-radius: 999px;
+}
+
+.project-link {
+  display: inline-block;
+  color: #2db8ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.project-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 850px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-section {
+    padding: 130px 6% 70px;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">Jovan<span>Ops</span></a>
+
+    <nav>
+      <a href="index.html#about">About</a>
+      <a href="index.html#stack">Stack</a>
+      <a href="index.html#playground">Playground</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page-section">
+    <section class="hero-section">
+      <h1>AI Evaluation & <span>Quality.</span></h1>
+      <p>
+        A collection of AI response evaluation, prompt testing and quality analysis projects
+        focused on accuracy, clarity, instruction following, formatting and usefulness.
+      </p>
+    </section>
+
+    <section class="project-grid">
+
+      <article class="project-card">
+        <div class="project-icon">🧪</div>
+        <h2>AI Response Evaluation Lab</h2>
+        <p>
+          Rubric-based AI response evaluation lab focused on accuracy, instruction following,
+          completeness, clarity and safety.
+        </p>
+        <div class="tags">
+          <span>AI Evaluation</span>
+          <span>Rubrics</span>
+          <span>Quality Review</span>
+        </div>
+        <a href="https://github.com/JovanOps/ai-response-evaluation-lab" target="_blank" class="project-link">
+          View Repository →
+        </a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-icon">📩</div>
+        <h2>Customer Support Email QA</h2>
+        <p>
+          Simulated customer support email QA project focused on tone, accuracy, empathy,
+          resolution clarity and escalation handling.
+        </p>
+        <div class="tags">
+          <span>Customer Support</span>
+          <span>Email QA</span>
+          <span>Escalation</span>
+        </div>
+        <a href="https://github.com/JovanOps/customer-support-email-qa" target="_blank" class="project-link">
+          View Repository →
+        </a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-icon">🛡️</div>
+        <h2>Prompt Robustness Testing</h2>
+        <p>
+          Prompt robustness testing lab analyzing AI behavior under ambiguity,
+          conflicting instructions, formatting changes and edge cases.
+        </p>
+        <div class="tags">
+          <span>Prompt Testing</span>
+          <span>Edge Cases</span>
+          <span>Robustness</span>
+        </div>
+        <a href="https://github.com/JovanOps/prompt-robustness-testing" target="_blank" class="project-link">
+          View Repository →
+        </a>
+      </article>
+
+      <article class="project-card">
+        <div class="project-icon">📊</div>
+        <h2>LLM Comparison Matrix</h2>
+        <p>
+          Structured comparison matrix evaluating AI-generated responses using accuracy,
+          clarity, formatting, instruction following and usefulness criteria.
+        </p>
+        <div class="tags">
+          <span>LLM Comparison</span>
+          <span>Scoring</span>
+          <span>Matrix</span>
+        </div>
+        <a href="https://github.com/JovanOps/llm-comparison-matrix" target="_blank" class="project-link">
+          View Repository →
+        </a>
+      </article>
+
+    </section>
+  </main>
+</body>
+</html>

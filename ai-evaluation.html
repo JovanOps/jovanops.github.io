@@ -3,266 +3,573 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>AI Evaluation & Quality | JovanOps</title>
-  <link rel="stylesheet" href="style.css" />
-   <style>
+  <meta name="description" content="AI response evaluation, prompt testing and quality analysis projects by JovanOps — rubric-based review, LLM comparison and structured feedback systems." />
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: #0b1020;
+      --card: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --blue-soft: rgba(56, 189, 248, 0.12);
+      --purple-soft: rgba(124, 58, 237, 0.13);
+    }
+
     * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-html {
-  scroll-behavior: smooth;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-body {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #050816;
-  color: #ffffff;
-}
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        radial-gradient(circle at top left, var(--blue-soft), transparent 34%),
+        radial-gradient(circle at bottom right, var(--purple-soft), transparent 38%),
+        var(--bg);
+      background-size: 80px 80px, 80px 80px, auto, auto, auto;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-.navbar {
-  width: 100%;
-  padding: 28px 8%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(5, 8, 22, 0.86);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  backdrop-filter: blur(14px);
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.logo {
-  font-size: 24px;
-  font-weight: 900;
-  color: #ffffff;
-  text-decoration: none;
-  letter-spacing: -0.5px;
-}
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 8%;
+      background: rgba(7, 11, 22, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+    }
 
-.logo span {
-  color: #2db8ff;
-}
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
 
-.navbar nav {
-  display: flex;
-  gap: 34px;
-}
+    .logo span {
+      color: var(--blue);
+    }
 
-.navbar nav a {
-  color: #aab4c8;
-  text-decoration: none;
-  font-size: 16px;
-  transition: 0.25s ease;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
 
-.navbar nav a:hover {
-  color: #2db8ff;
-}
-    .page-section {
-  min-height: 100vh;
-  padding: 150px 8% 80px;
-  background:
-    linear-gradient(rgba(10, 13, 30, 0.94), rgba(5, 9, 20, 0.98)),
-    radial-gradient(circle at top left, rgba(44, 179, 255, 0.16), transparent 35%);
-  color: #ffffff;
-}
+    .nav a {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
 
-.hero-section {
-  max-width: 850px;
-  margin-bottom: 55px;
-}
+    .nav a:hover {
+      color: var(--blue);
+    }
 
-.hero-section h1 {
-  font-size: clamp(42px, 6vw, 78px);
-  line-height: 1.05;
-  margin-bottom: 24px;
-}
+    .page {
+      padding: 90px 8% 80px;
+    }
 
-.hero-section h1 span {
-  color: #2db8ff;
-}
+    .hero {
+      max-width: 980px;
+      margin-bottom: 64px;
+    }
 
-.hero-section p {
-  max-width: 780px;
-  color: #9aa7bd;
-  font-size: 18px;
-  line-height: 1.8;
-}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 26px;
-}
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.7;
+    }
 
-.project-card {
-  background: rgba(15, 23, 42, 0.72);
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  border-radius: 22px;
-  padding: 30px;
-  transition: 0.25s ease;
-}
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.08em;
+      margin-bottom: 26px;
+    }
 
-.project-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(45, 184, 255, 0.45);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
-}
+    .hero h1 span {
+      color: var(--blue);
+    }
 
-.project-icon {
-  font-size: 30px;
-  margin-bottom: 18px;
-}
+    .hero p {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.85;
+    }
 
-.project-card h2 {
-  font-size: 24px;
-  margin-bottom: 14px;
-  color: #ffffff;
-}
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
 
-.project-card p {
-  color: #8fa0b8;
-  line-height: 1.7;
-  margin-bottom: 22px;
-}
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: 0.22s ease;
+    }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 24px;
-}
+    .btn-primary {
+      background: var(--blue);
+      color: #020617;
+    }
 
-.tags span {
-  font-size: 13px;
-  color: #9bdcff;
-  border: 1px solid rgba(45, 184, 255, 0.25);
-  background: rgba(45, 184, 255, 0.08);
-  padding: 7px 11px;
-  border-radius: 999px;
-}
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 50px rgba(56, 189, 248, 0.18);
+    }
 
-.project-link {
-  display: inline-block;
-  color: #2db8ff;
-  font-weight: 700;
-  text-decoration: none;
-}
+    .btn-secondary {
+      color: #dbeafe;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.38);
+    }
 
-.project-link:hover {
-  color: #ffffff;
-}
+    .btn-secondary:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
 
-@media (max-width: 850px) {
-  .project-grid {
-    grid-template-columns: 1fr;
-  }
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
 
-  .page-section {
-    padding: 130px 6% 70px;
-  }
-}
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.06em;
+    }
+
+    .section-title p {
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .lab-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.50));
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 28px;
+      transition: 0.25s ease;
+    }
+
+    .lab-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 34%);
+      opacity: 0;
+      transition: 0.25s ease;
+      pointer-events: none;
+    }
+
+    .lab-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(56, 189, 248, 0.48);
+      box-shadow: 0 24px 70px rgba(2, 132, 199, 0.12);
+    }
+
+    .lab-card:hover::before {
+      opacity: 1;
+    }
+
+    .lab-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+      z-index: 1;
+    }
+
+    .lab-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      font-size: 1.65rem;
+    }
+
+    .lab-type {
+      color: #7dd3fc;
+      background: rgba(14, 165, 233, 0.10);
+      border: 1px solid rgba(14, 165, 233, 0.18);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 7px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .lab-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 1.42rem;
+      line-height: 1.22;
+      letter-spacing: -0.035em;
+      margin-bottom: 14px;
+    }
+
+    .lab-card p {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 22px;
+    }
+
+    .tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .tags span {
+      font-size: 0.76rem;
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.11);
+      border: 1px solid rgba(14, 165, 233, 0.16);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .lab-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid rgba(148, 163, 184, 0.13);
+    }
+
+    .lab-link {
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .lab-link:hover {
+      letter-spacing: 0.02em;
+    }
+
+    .status {
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      opacity: 0.75;
+    }
+
+    .note {
+      margin-top: 46px;
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .note h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.04em;
+    }
+
+    .note p {
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 900px;
+    }
+
+    footer {
+      padding: 44px 8%;
+      color: #64748b;
+      border-top: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    @media (max-width: 1100px) {
+      .labs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        padding: 22px 6%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .page {
+        padding: 64px 6% 60px;
+      }
+
+      .labs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lab-card {
+        min-height: auto;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <header class="navbar">
-    <a href="index.html" class="logo">Jovan<span>Ops</span></a>
+  <header class="site-header">
+    <a class="logo" href="index.html">Jovan<span>Ops</span></a>
 
-    <nav>
+    <nav class="nav">
       <a href="index.html#about">About</a>
-      <a href="index.html#stack">Stack</a>
+      <a href="index.html#skills">Stack</a>
       <a href="index.html#playground">Playground</a>
       <a href="index.html#contact">Contact</a>
     </nav>
   </header>
 
-  <main class="page-section">
-    <section class="hero-section">
-      <h1>AI Evaluation & <span>Quality.</span></h1>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">AI Playground</div>
+
+      <h1>AI Evaluation <span>&amp; Quality.</span></h1>
+
       <p>
-        A collection of AI response evaluation, prompt testing and quality analysis projects
-        focused on accuracy, clarity, instruction following, formatting and usefulness.
+        Structured evaluation projects focused on AI response quality, prompt robustness,
+        LLM comparison and rubric-based feedback systems. Each project documents the
+        evaluation criteria, methodology, findings and lessons learned.
       </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">Explore Projects</a>
+        <a class="btn btn-secondary" href="https://github.com/JovanOps?tab=repositories" target="_blank" rel="noopener">
+          View GitHub Profile
+        </a>
+        <a class="btn btn-secondary" href="index.html#playground">
+          Back to Playground
+        </a>
+      </div>
     </section>
 
-    <section class="project-grid">
-
-      <article class="project-card">
-        <div class="project-icon">🧪</div>
-        <h2>AI Response Evaluation Lab</h2>
+    <section id="projects">
+      <div class="section-title">
+        <h2>Selected Projects</h2>
         <p>
-          Rubric-based AI response evaluation lab focused on accuracy, instruction following,
-          completeness, clarity and safety.
+          A curated set of AI evaluation experiments built to demonstrate structured
+          quality review, scoring methodology and practical LLM analysis.
         </p>
-        <div class="tags">
-          <span>AI Evaluation</span>
-          <span>Rubrics</span>
-          <span>Quality Review</span>
-        </div>
-        <a href="https://github.com/JovanOps/ai-response-evaluation-lab" target="_blank" class="project-link">
-          View Repository →
-        </a>
-      </article>
+      </div>
 
-      <article class="project-card">
-        <div class="project-icon">📩</div>
-        <h2>Customer Support Email QA</h2>
+      <div class="labs-grid">
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🧪</div>
+            <div class="lab-type">AI · Evaluation</div>
+          </div>
+
+          <h3>AI Response Evaluation Lab</h3>
+
+          <p>
+            Rubric-based AI response evaluation lab focused on accuracy, instruction
+            following, completeness, clarity and safety. Structured scoring across
+            multiple response dimensions.
+          </p>
+
+          <div class="tags">
+            <span>AI Evaluation</span>
+            <span>Rubrics</span>
+            <span>Quality Review</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/ai-response-evaluation-lab" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Eval Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">📩</div>
+            <div class="lab-type">QA · Support</div>
+          </div>
+
+          <h3>Customer Support Email QA</h3>
+
+          <p>
+            Simulated customer support email QA project focused on tone, accuracy,
+            empathy, resolution clarity and escalation handling. Practical quality
+            review applied to real support scenarios.
+          </p>
+
+          <div class="tags">
+            <span>Customer Support</span>
+            <span>Email QA</span>
+            <span>Escalation</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/customer-support-email-qa" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">QA Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">🛡️</div>
+            <div class="lab-type">AI · Prompting</div>
+          </div>
+
+          <h3>Prompt Robustness Testing</h3>
+
+          <p>
+            Prompt robustness testing lab analyzing AI behavior under ambiguity,
+            conflicting instructions, formatting changes and edge cases. Focused
+            on identifying failure modes and consistency gaps.
+          </p>
+
+          <div class="tags">
+            <span>Prompt Testing</span>
+            <span>Edge Cases</span>
+            <span>Robustness</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/prompt-robustness-testing" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Testing Lab</span>
+          </div>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-top">
+            <div class="lab-icon">📊</div>
+            <div class="lab-type">AI · Comparison</div>
+          </div>
+
+          <h3>LLM Comparison Matrix</h3>
+
+          <p>
+            Structured comparison matrix evaluating AI-generated responses using
+            accuracy, clarity, formatting, instruction following and usefulness
+            criteria. Side-by-side model analysis with consistent scoring.
+          </p>
+
+          <div class="tags">
+            <span>LLM Comparison</span>
+            <span>Scoring</span>
+            <span>Matrix</span>
+          </div>
+
+          <div class="lab-footer">
+            <a class="lab-link" href="https://github.com/JovanOps/llm-comparison-matrix" target="_blank" rel="noopener">
+              View README →
+            </a>
+            <span class="status">Analysis Lab</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="note">
+        <h2>Why this section exists</h2>
         <p>
-          Simulated customer support email QA project focused on tone, accuracy, empathy,
-          resolution clarity and escalation handling.
+          These projects are not just documentation exercises. They reflect how I
+          approach AI quality work in practice: defining clear evaluation criteria,
+          applying consistent rubrics, identifying patterns in model behavior and
+          turning findings into structured, reusable review frameworks.
         </p>
-        <div class="tags">
-          <span>Customer Support</span>
-          <span>Email QA</span>
-          <span>Escalation</span>
-        </div>
-        <a href="https://github.com/JovanOps/customer-support-email-qa" target="_blank" class="project-link">
-          View Repository →
-        </a>
-      </article>
-
-      <article class="project-card">
-        <div class="project-icon">🛡️</div>
-        <h2>Prompt Robustness Testing</h2>
-        <p>
-          Prompt robustness testing lab analyzing AI behavior under ambiguity,
-          conflicting instructions, formatting changes and edge cases.
-        </p>
-        <div class="tags">
-          <span>Prompt Testing</span>
-          <span>Edge Cases</span>
-          <span>Robustness</span>
-        </div>
-        <a href="https://github.com/JovanOps/prompt-robustness-testing" target="_blank" class="project-link">
-          View Repository →
-        </a>
-      </article>
-
-      <article class="project-card">
-        <div class="project-icon">📊</div>
-        <h2>LLM Comparison Matrix</h2>
-        <p>
-          Structured comparison matrix evaluating AI-generated responses using accuracy,
-          clarity, formatting, instruction following and usefulness criteria.
-        </p>
-        <div class="tags">
-          <span>LLM Comparison</span>
-          <span>Scoring</span>
-          <span>Matrix</span>
-        </div>
-        <a href="https://github.com/JovanOps/llm-comparison-matrix" target="_blank" class="project-link">
-          View Repository →
-        </a>
-      </article>
-
+      </div>
     </section>
   </main>
+
+  <footer>
+    JovanOps · AI Evaluation &amp; Quality · Rubrics, Prompt Testing, LLM Analysis &amp; Feedback Systems
+  </footer>
 </body>
 </html>

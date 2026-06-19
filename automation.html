@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Automation Systems | JovanOps</title>
+  <meta name="description" content="Automation Systems by JovanOps — live deployment experiments, support tools, workflow demos and cloud automation labs." />
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg-soft: #0b1020;
+      --card: rgba(15, 23, 42, 0.74);
+      --card-strong: rgba(15, 23, 42, 0.92);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --muted-soft: #64748b;
+      --blue: #38bdf8;
+      --blue-soft: rgba(56, 189, 248, 0.12);
+      --purple-soft: rgba(124, 58, 237, 0.13);
+      --green: #22c55e;
+      --yellow: #facc15;
+      --orange: #fb923c;
+      --danger: #fb7185;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        radial-gradient(circle at top left, var(--blue-soft), transparent 34%),
+        radial-gradient(circle at bottom right, var(--purple-soft), transparent 38%),
+        var(--bg);
+      background-size: 80px 80px, 80px 80px, auto, auto, auto;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 8%;
+      background: rgba(7, 11, 22, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav a {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--blue);
+    }
+
+    .page {
+      padding: 92px 8% 84px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 46px;
+      align-items: center;
+      margin-bottom: 76px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      font-size: 0.86rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--blue);
+      opacity: 0.75;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.4rem, 8vw, 7.8rem);
+      line-height: 0.92;
+      letter-spacing: -0.085em;
+      margin-bottom: 26px;
+    }
+
+    .hero h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      max-width: 860px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.24rem);
+      line-height: 1.85;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 0.94rem;
+      transition: 0.22s ease;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #020617;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 50px rgba(56, 189, 248, 0.18);
+    }
+
+    .btn-secondary {
+      color: #dbeafe;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .hero-console {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      padding: 24px;
+      background:
+        linear-gradient(145deg, rgba(15,23,42,0.94), rgba(15,23,42,0.54));
+      border: 1px solid var(--card-border);
+      box-shadow: 0 32px 100px rgba(2, 132, 199, 0.14);
+    }
+
+    .hero-console::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 36%);
+      pointer-events: none;
+    }
+
+    .console-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--danger);
+    }
+
+    .dots span:nth-child(2) {
+      background: var(--yellow);
+    }
+
+    .dots span:nth-child(3) {
+      background: var(--green);
+    }
+
+    .console-badge {
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.11);
+      border: 1px solid rgba(14, 165, 233, 0.18);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .console-body {
+      position: relative;
+      z-index: 1;
+      min-height: 330px;
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(2, 6, 23, 0.70);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: #dbeafe;
+    }
+
+    .console-body .blue {
+      color: var(--blue);
+    }
+
+    .console-body .green {
+      color: var(--green);
+    }
+
+    .console-body .muted {
+      color: var(--muted);
+    }
+
+    .console-body .yellow {
+      color: var(--yellow);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 76px;
+    }
+
+    .stat {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.54);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -0.07em;
+      margin-bottom: 10px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: -0.065em;
+    }
+
+    .section-title p {
+      max-width: 600px;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: minmax(270px, auto);
+      gap: 22px;
+      margin-bottom: 76px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 300px;
+      border-radius: 28px;
+      padding: 26px;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.50));
+      border: 1px solid var(--card-border);
+      transition: 0.25s ease;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.13), transparent 36%);
+      opacity: 0;
+      transition: 0.25s ease;
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(56, 189, 248, 0.48);
+      box-shadow: 0 24px 70px rgba(2, 132, 199, 0.13);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      grid-row: span 2;
+      min-height: 620px;
+      background:
+        linear-gradient(145deg, rgba(10, 25, 47, 0.96), rgba(15, 23, 42, 0.58));
+    }
+
+    .project-card.wide {
+      grid-column: span 2;
+    }
+
+    .project-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .project-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      font-size: 1.55rem;
+    }
+
+    .project-type {
+      color: #7dd3fc;
+      background: rgba(14, 165, 233, 0.10);
+      border: 1px solid rgba(14, 165, 233, 0.18);
+      font-size: 0.73rem;
+      font-weight: 900;
+      padding: 7px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .project-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(1.34rem, 2vw, 1.85rem);
+      line-height: 1.14;
+      letter-spacing: -0.055em;
+      margin-bottom: 14px;
+    }
+
+    .project-card.featured h3 {
+      font-size: clamp(2.1rem, 4vw, 3.6rem);
+      max-width: 620px;
+    }
+
+    .project-card p {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 22px;
+    }
+
+    .project-card.featured p {
+      font-size: 1.05rem;
+      max-width: 660px;
+    }
+
+    .tags {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .tags span {
+      font-size: 0.74rem;
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.10);
+      border: 1px solid rgba(14, 165, 233, 0.16);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .project-visual {
+      position: relative;
+      z-index: 1;
+      margin-top: 10px;
+      margin-bottom: 24px;
+      min-height: 220px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at center, rgba(56,189,248,0.16), transparent 35%),
+        rgba(2, 6, 23, 0.62);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .flow-node {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.70);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      color: #dbeafe;
+      font-size: 0.9rem;
+    }
+
+    .flow-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.08);
+      flex: 0 0 auto;
+    }
+
+    .project-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid rgba(148, 163, 184, 0.13);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .project-link {
+      color: var(--blue);
+      font-weight: 950;
+      font-size: 0.94rem;
+      transition: 0.2s ease;
+    }
+
+    .project-link:hover {
+      letter-spacing: 0.02em;
+    }
+
+    .status {
+      color: #cbd5e1;
+      font-size: 0.76rem;
+      opacity: 0.75;
+      white-space: nowrap;
+    }
+
+    .stack-strip {
+      margin-bottom: 76px;
+      padding: 30px;
+      border-radius: 30px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .stack-strip h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      margin-bottom: 18px;
+    }
+
+    .stack-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stack-list span {
+      color: #dbeafe;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .philosophy {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .quote-card,
+    .process-card {
+      padding: 30px;
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.48));
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .quote-card h2,
+    .process-card h2 {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      letter-spacing: -0.065em;
+      margin-bottom: 16px;
+    }
+
+    .quote-card p,
+    .process-card p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .process-steps {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .process-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(2, 6, 23, 0.38);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .process-number {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--blue);
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+
+    .process-step strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .process-step span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    footer {
+      padding: 44px 8%;
+      color: #64748b;
+      border-top: 1px solid rgba(148, 163, 184, 0.10);
+    }
+
+    @media (max-width: 1180px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .bento-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-card.featured,
+      .project-card.wide {
+        grid-column: span 2;
+      }
+
+      .philosophy {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        padding: 22px 6%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .page {
+        padding: 64px 6% 60px;
+      }
+
+      .stats-row,
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.featured,
+      .project-card.wide {
+        grid-column: span 1;
+      }
+
+      .project-card.featured {
+        min-height: auto;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .project-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Jovan<span>Ops</span></a>
+
+    <nav class="nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#skills">Stack</a>
+      <a href="index.html#playground">Playground</a>
+      <a class="active" href="automation.html">Automation</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Automation Playground</div>
+
+        <h1>Automation <span>Systems.</span></h1>
+
+        <p>
+          Live deployment experiments, support tools, workflow demos and cloud automation labs —
+          built around one idea: repeatable systems beat manual chaos.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#systems">Explore Live Systems</a>
+          <a class="btn btn-secondary" href="https://github.com/JovanOps?tab=repositories" target="_blank" rel="noopener">
+            View GitHub Profile
+          </a>
+          <a class="btn btn-secondary" href="index.html#playground">
+            Back to Playground
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-console">
+        <div class="console-top">
+          <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <span class="console-badge">Live Deployment Layer</span>
+        </div>
+
+        <div class="console-body">
+          <div><span class="blue">$</span> jovanops deploy --automation-labs</div>
+          <br />
+          <div class="muted">Collecting live demos...</div>
+          <div>Azure Nginx Auto Deploy <span class="green">READY</span></div>
+          <div>Support Toolkit <span class="green">READY</span></div>
+          <div>Northwind Employee App <span class="green">READY</span></div>
+          <div>AutoOglasi <span class="green">READY</span></div>
+          <div>DigitronMaui <span class="green">READY</span></div>
+          <div>DIGITRON <span class="green">READY</span></div>
+          <div>ARTPOPix <span class="green">READY</span></div>
+          <br />
+          <div class="yellow">Output:</div>
+          <div>7 live portfolio systems connected.</div>
+          <div class="muted">GitHub → Vercel → JovanOps Playground</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="stats-row">
+      <div class="stat">
+        <strong>7</strong>
+        <span>Live demos deployed and connected through Vercel.</span>
+      </div>
+
+      <div class="stat">
+        <strong>3</strong>
+        <span>Main directions: cloud automation, support tools and workflow demos.</span>
+      </div>
+
+      <div class="stat">
+        <strong>100%</strong>
+        <span>Browser-accessible project previews for fast portfolio review.</span>
+      </div>
+
+      <div class="stat">
+        <strong>Ops</strong>
+        <span>Systems mindset: structure, repeatability and visible outcomes.</span>
+      </div>
+    </section>
+
+    <section id="systems">
+      <div class="section-title">
+        <h2>Live Automation Systems</h2>
+        <p>
+          A curated set of deployed experiments. Some are real automation case studies,
+          some are desktop-to-web conversions, and some are workflow simulations built
+          to make technical logic visible in the browser.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+
+        <article class="project-card featured">
+          <div class="project-head">
+            <div class="project-icon">☁️</div>
+            <div class="project-type">Cloud · Automation</div>
+          </div>
+
+          <h3>Azure Nginx Auto Deploy</h3>
+
+          <p>
+            Azure Linux VM automation case study using cloud-init to install and start
+            Nginx during provisioning, presented as a live deployment-flow demo on Vercel.
+          </p>
+
+          <div class="tags">
+            <span>Azure</span>
+            <span>Linux VM</span>
+            <span>Nginx</span>
+            <span>cloud-init</span>
+            <span>YAML</span>
+            <span>Automation Lab</span>
+          </div>
+
+          <div class="project-visual">
+            <div class="flow-node"><span class="flow-dot"></span>Provision Azure Linux VM</div>
+            <div class="flow-node"><span class="flow-dot"></span>Run cloud-init on first boot</div>
+            <div class="flow-node"><span class="flow-dot"></span>Install and enable Nginx</div>
+            <div class="flow-node"><span class="flow-dot"></span>Serve web page automatically</div>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://azure-nginx-autodeploy.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/azure-nginx-autodeploy" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Automation Lab · Live on Vercel</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-icon">🛠️</div>
+            <div class="project-type">Support · Ops</div>
+          </div>
+
+          <h3>Support Toolkit</h3>
+
+          <p>
+            Browser-based preview of a Python support toolkit concept for parsing logs,
+            counting warning and error levels, and generating troubleshooting summaries.
+          </p>
+
+          <div class="tags">
+            <span>Python Concept</span>
+            <span>Logs</span>
+            <span>IT Support</span>
+            <span>Troubleshooting</span>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://support-toolkit-vwvs.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/support-toolkit" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Support Tool</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-icon">🗂️</div>
+            <div class="project-type">CRUD · Dashboard</div>
+          </div>
+
+          <h3>Northwind Employee App</h3>
+
+          <p>
+            C# WinForms and SQL database concept rebuilt as a live browser-based
+            CRUD dashboard preview for employee management workflows.
+          </p>
+
+          <div class="tags">
+            <span>C#</span>
+            <span>WinForms</span>
+            <span>SQL</span>
+            <span>CRUD</span>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://northwind-employee-app.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/NorthwindEmployeeApp" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Workflow Demo</span>
+          </div>
+        </article>
+
+        <article class="project-card wide">
+          <div class="project-head">
+            <div class="project-icon">🚗</div>
+            <div class="project-type">Business · Workflow</div>
+          </div>
+
+          <h3>AutoOglasi</h3>
+
+          <p>
+            A car classifieds frontend demo showing listing structure, search filters,
+            marketplace cards and product browsing logic. Built as a visible workflow
+            layer for a business-style web application.
+          </p>
+
+          <div class="tags">
+            <span>Marketplace</span>
+            <span>Filters</span>
+            <span>Frontend</span>
+            <span>Business App</span>
+            <span>Vercel</span>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://auto-oglasi-steel.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/AutoOglasi" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Marketplace Demo</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-icon">📱</div>
+            <div class="project-type">MAUI · Preview</div>
+          </div>
+
+          <h3>DigitronMaui</h3>
+
+          <p>
+            Cross-platform .NET MAUI calculator concept rebuilt as a responsive
+            browser demo for live portfolio presentation.
+          </p>
+
+          <div class="tags">
+            <span>.NET MAUI</span>
+            <span>C#</span>
+            <span>XAML</span>
+            <span>Web Demo</span>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://digitron-maui.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/DigitronMaui" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Desktop-to-Web</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-icon">🧮</div>
+            <div class="project-type">Web · App</div>
+          </div>
+
+          <h3>DIGITRON</h3>
+
+          <p>
+            WPF calculator concept rebuilt as a live browser-based JavaScript app,
+            demonstrating arithmetic logic, keyboard input and static deployment.
+          </p>
+
+          <div class="tags">
+            <span>JavaScript</span>
+            <span>Calculator</span>
+            <span>WPF Concept</span>
+            <span>Vercel</span>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://digitron-jade.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/DIGITRON" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Live App</span>
+          </div>
+        </article>
+
+        <article class="project-card wide">
+          <div class="project-head">
+            <div class="project-icon">🎨</div>
+            <div class="project-type">Visual · Frontend</div>
+          </div>
+
+          <h3>ARTPOPix</h3>
+
+          <p>
+            A retro pixel-art inspired microsite deployed on Vercel as a visual frontend
+            experiment. Focused on layout, interface cards, nostalgic web aesthetics
+            and static deployment workflow.
+          </p>
+
+          <div class="tags">
+            <span>Frontend</span>
+            <span>Visual UI</span>
+            <span>Pixel Aesthetic</span>
+            <span>Static Deploy</span>
+          </div>
+
+          <div class="project-footer">
+            <div class="project-links">
+              <a class="project-link" href="https://mini-site-artpo-pix.vercel.app/" target="_blank" rel="noopener">
+                Live Demo →
+              </a>
+              <a class="project-link" href="https://github.com/JovanOps/MiniSiteARTPOPix" target="_blank" rel="noopener">
+                GitHub →
+              </a>
+            </div>
+            <span class="status">Visual Experiment</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="stack-strip">
+      <h2>Automation Stack</h2>
+
+      <div class="stack-list">
+        <span>Azure</span>
+        <span>Linux</span>
+        <span>Nginx</span>
+        <span>cloud-init</span>
+        <span>YAML</span>
+        <span>Python Concepts</span>
+        <span>C#</span>
+        <span>.NET MAUI</span>
+        <span>WinForms</span>
+        <span>SQL Concepts</span>
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>GitHub</span>
+        <span>Vercel</span>
+        <span>Documentation</span>
+      </div>
+    </section>
+
+    <section class="philosophy">
+      <div class="quote-card">
+        <h2>Why this page exists</h2>
+        <p>
+          Automation, for me, is not only about scripts. It is about turning repeated
+          actions into structured workflows, making technical processes easier to
+          understand, easier to repeat and easier to improve.
+        </p>
+      </div>
+
+      <div class="process-card">
+        <h2>My workflow</h2>
+
+        <p>
+          Each project follows the same idea: take something hidden in code, desktop apps,
+          scripts or infrastructure notes — then turn it into something visible,
+          explainable and easy to review.
+        </p>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-number">1</div>
+            <div>
+              <strong>Identify the system</strong>
+              <span>Find the repeated process, workflow, support task or deployment pattern.</span>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">2</div>
+            <div>
+              <strong>Structure the logic</strong>
+              <span>Break the project into inputs, process steps, output and documentation.</span>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">3</div>
+            <div>
+              <strong>Make it visible</strong>
+              <span>Deploy a live preview, dashboard, simulation or case study layer.</span>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">4</div>
+            <div>
+              <strong>Connect it to the portfolio</strong>
+              <span>Link live demos, GitHub repositories and clear project context in one place.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    JovanOps · Automation Systems · Live Demos, Support Tools, Workflow Labs, Cloud Automation & Deployment Experiments
+  </footer>
+</body>
+</html>
